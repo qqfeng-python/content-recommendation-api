@@ -30,7 +30,7 @@ class ArticleProcessorTestCase(unittest.TestCase):
 
     def test_article_processor(self):
         response, is_valid = article_processor(
-            url='http://www.physiciansnewsnetwork.com/ximed/study-hospital-physician-vertical-integration-has-little-impact-on-quality/article_257c41a0-3a11-11e9-952b-97cc981efd76.html')
+            url='http://www.physiciansnewsnetwork.com/ximed/study-hospital-physician-vertical-integration-has-little-impact-on-quality/article_257c41a0-3a11-11e9-952b-97cc981efd76.html', processor_id = "language-processor-health")
 
         self.assertEqual(len(response['embedding']), 250)
 

@@ -32,8 +32,8 @@ def get_db_ids(user_id):
     }
 
 
-def process_article_url(article_url):
-    article_dict, is_valid = article_processor(url=article_url)
+def process_article_url(article_url, processor_id):
+    article_dict, is_valid = article_processor(article_url, processor_id)
 
     response_articles = {
         'initial': [{
@@ -62,7 +62,9 @@ def get_related_articles():
 
     try:
         article_url = data_dict["article_url"]
-        response_articles, article_dict, is_valid = process_article_url(article_url)
+        processor_id = data_dict["processor_id"]
+
+        response_articles, article_dict, is_valid = process_article_url(article_url, processor_id)
 
         db_ids = get_db_ids(data_dict["user_id"])
         graph = GraphFulfilment(db_ids)
@@ -110,7 +112,9 @@ def get_article_summary():
 
     try:
         article_url = data_dict["article_url"]
-        response_articles, article_dict, is_valid = process_article_url(article_url)
+        processor_id = data_dict["processor_id"]
+
+        response_articles, article_dict, is_valid = process_article_url(article_url, processor_id)
 
     except Exception:
         response = app.response_class(
@@ -189,7 +193,6 @@ def explore_relations():
 
 
 if __name__ == '__main__':
-
     # get_related_articles({
     #     'article_url': 'https://techcrunch.com/2019/02/18/apple-could-be-looking-for-its-next-big-revenue-model/'
     # })

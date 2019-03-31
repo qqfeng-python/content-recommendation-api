@@ -5,7 +5,9 @@ from ArticleDownloader import Article
 
 # TODO: Add Google App engine Memcache for this API
 # https://cloud.google.com/appengine/docs/standard/python/memcache/using#configuring_memcache
-natural_language_function = "https://us-central1-graph-intelligence.cloudfunctions.net/language-processor-health"
+
+# There are multiple functions for differnt doc2vec models
+natural_language_function_base_url = "https://us-central1-graph-intelligence.cloudfunctions.net/{0}"
 
 # If less than 100 tokens retry parsing the article not cleaning dom
 retry_article_parse_tokens = 100
@@ -60,7 +62,7 @@ def fetch_article(url):
         }
 
 
-def process_language(text):
+def process_language(text, processor_id):
     """
     Fetch from language processing API (cloud function)
     :param text:
@@ -72,13 +74,13 @@ def process_language(text):
         'text': text.encode("ascii", errors="ignore").decode()
     }
 
-    response = requests.post(natural_language_function,
+    response = requests.post(natural_language_function_base_url.format(processor_id),
                              json=request)
 
     return response.json()
 
 
-def article_processor(url):
+def article_processor(url, processor_id):
     """
     Used to process and enrich text to be suitable for knowledge graph
     :param text:
@@ -94,7 +96,7 @@ def article_processor(url):
         if len(article_dict['text'].split()) < 100:
             is_valid = False
 
-        processed_language = process_language(article_dict['text'])
+        processed_language = process_language(article_dict['text'], processor_id)
 
         article_dict['summary'] = processed_language['summary']
         article_dict['embedding'] = processed_language['embedding']
