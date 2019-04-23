@@ -1,7 +1,7 @@
 import json
 from py2neo import Graph
 
-graph_url = "http://neo4j:Trebinje66@35.202.226.197:7474/db/data/"
+from config import GRAPH_URL
 
 
 class RelationsQuery:
@@ -12,7 +12,7 @@ class RelationsQuery:
     """
 
     def __init__(self, db_ids):
-        self.graph = Graph(graph_url)
+        self.graph = Graph(GRAPH_URL)
 
         # Minimum entities mentioned in summary
         self.minimum_entities = 0
@@ -141,7 +141,8 @@ class RelationsQuery:
             })
 
         # To remove duplicates produced in how the paths are matched, and only use top 5
-        explanation['entity_categories'] = [dict(t) for t in {tuple(d.items()) for d in explanation['entity_categories']}][:5]
+        explanation['entity_categories'] = [dict(t) for t in
+                                            {tuple(d.items()) for d in explanation['entity_categories']}][:5]
 
         # For finding common concepts
         concepts = list(self.graph.run(self.queries_dict["EXPLAIN_CONCEPT_RELATION"],
@@ -154,7 +155,6 @@ class RelationsQuery:
             })
 
         return explanation
-
 
 # if __name__ == "__main__":
 #     db_ids = {

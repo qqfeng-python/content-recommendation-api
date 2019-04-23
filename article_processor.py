@@ -1,6 +1,6 @@
 import newspaper
 import requests
-from ArticleDownloader import Article
+from article_downloader import Article
 
 
 # TODO: Add Google App engine Memcache for this API

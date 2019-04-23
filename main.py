@@ -2,9 +2,11 @@ from flask import Flask, request
 from flask_cors import CORS
 import json, requests
 
-from ArticleProcessor import article_processor
-from GraphFulfilment import GraphFulfilment
-from RelationsQuery import RelationsQuery
+from article_processor import article_processor
+from graph_fulfilment import GraphFulfilment
+from relations_query import RelationsQuery
+
+from config import NUMBER_OF_RELATED_ARTICLES
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -21,8 +23,6 @@ Server for Wyzefind API:
 -/Explore Performs Cypher queries to explain relations
 -
 """
-
-number_of_related_articles = 3
 
 
 def get_db_ids(user_id):
@@ -78,7 +78,7 @@ def get_related_articles():
 
     most_related = graph.get_most_related_by_embedding(article_dict['embedding'])
 
-    most_related = most_related[:number_of_related_articles]
+    most_related = most_related[:NUMBER_OF_RELATED_ARTICLES]
 
     try:
         # Prevent the same article from being reccomended
@@ -175,7 +175,7 @@ def explore_relations():
     }
 
     most_related = graph.get_most_related_articles(title)
-    most_related = most_related[:number_of_related_articles]
+    most_related = most_related[:NUMBER_OF_RELATED_ARTICLES]
 
     for related in most_related:
         data = graph.get_article_data(related)

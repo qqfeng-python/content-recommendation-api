@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from ArticleProcessor import download, fetch_article, article_processor
+from article_processor import download, fetch_article, article_processor
 
 
 class ArticleProcessorTestCase(unittest.TestCase):

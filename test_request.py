@@ -1,4 +1,5 @@
 import requests
+import json
 
 # r = requests.post("http://127.0.0.1:5000/summary-related", json={'article_url': 'http://www.physiciansnewsnetwork.com/ximed/study-hospital-physician-vertical-integration-has-little-impact-on-quality/article_257c41a0-3a11-11e9-952b-97cc981efd76.html', 'user_id': 1})
 # print(r.status_code, r.reason)
@@ -12,11 +13,11 @@ import requests
 
 # keep the API warm:
 while True:
-    r = requests.post("https://wyzefind-api-dot-graph-intelligence.appspot.com/summary-related", json={
-        'article_url': 'http://www.physiciansnewsnetwork.com/ximed/study-hospital-physician-vertical-integration-has-little-impact-on-quality/article_257c41a0-3a11-11e9-952b-97cc981efd76.html',
-        'user_id': 1})
+    r = requests.post("https://wyzefind-api-dot-graph-intelligence.appspot.com/explore", json={
+        'article_url': 'https://www.health.harvard.edu/blog/sweeteners-time-to-rethink-your-choices-2019022215967',
+        'user_id': 1, 'processor_id': 'language-processor-health'})
     print(r.status_code, r.reason)
-    print(r.text)
+    print(json.dumps(r.json(), indent=2))
 
     import time
     time.sleep(900)
