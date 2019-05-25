@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json, requests
 
 from article_processor import article_processor
+from article_curation import get_article_dicts_from_rss
 from graph_fulfilment import GraphFulfilment
 from relations_query import RelationsQuery
 
@@ -190,6 +191,39 @@ def explore_relations():
     )
 
     return response
+
+
+@app.route('/rss-content', methods=['POST'])
+def article_from_rss():
+    """
+    Takes rss link and returns article_dict
+    :return:
+    """
+
+    data = request.data
+    data_dict = json.loads(data)
+
+    try:
+        rss_url = data_dict["rss_url"]
+
+    except (KeyError):
+        response = app.response_class(
+            response='Proper parameter missing',
+            status=500,
+        )
+        return response
+
+    article_dicts = get_article_dicts_from_rss(rss_url)
+
+    # print(json.dumps(article_dicts, indent=2))
+    response = app.response_class(
+        response=json.dumps(article_dicts),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
 
 
 if __name__ == '__main__':

@@ -1,9 +1,9 @@
 import requests
 import json
 
-# r = requests.post("http://127.0.0.1:5000/summary-related", json={'article_url': 'http://www.physiciansnewsnetwork.com/ximed/study-hospital-physician-vertical-integration-has-little-impact-on-quality/article_257c41a0-3a11-11e9-952b-97cc981efd76.html', 'user_id': 1})
-# print(r.status_code, r.reason)
-# print(r.text)
+r = requests.post("http://127.0.0.1:5000/rss-content", json={'rss_url': 'http://rss.cnn.com/rss/cnn_topstories.rss'})
+print(r.status_code, r.reason)
+print(r.text)
 
 
 # url = 'https://messenger-formatter-dot-graph-intelligence.appspot.com/related?analyzeURL1=https%3A%2F%2Fwww.cnn.com%2F2019%2F03%2F07%2Fhealth%2Ffish-mislabeling-investigation-oceana%2Findex.html&db_id=1'
@@ -11,16 +11,16 @@ import json
 
 
 
-# keep the API warm:
-while True:
-    r = requests.post("https://wyzefind-api-dot-graph-intelligence.appspot.com/explore", json={
-        'article_url': 'https://www.health.harvard.edu/blog/sweeteners-time-to-rethink-your-choices-2019022215967',
-        'user_id': 1, 'processor_id': 'language-processor-health'})
-    print(r.status_code, r.reason)
-    print(json.dumps(r.json(), indent=2))
-
-    import time
-    time.sleep(900)
+# # keep the API warm:
+# while True:
+#     r = requests.post("https://wyzefind-api-dot-graph-intelligence.appspot.com/summary", json={
+#         'article_url': 'https://pilotonline.com/entertainment/festivals/article_10a31f32-75b8-11e9-83de-af3cdb515609.html',
+#         'user_id': 1, 'processor_id': 'language-processor-health'})
+#     print(r.status_code, r.reason)
+#     print(json.dumps(r.json(), indent=2))
+#
+#     import time
+#     time.sleep(900)
 
 
 

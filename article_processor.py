@@ -2,10 +2,6 @@ import newspaper
 import requests
 from article_downloader import Article
 
-
-# TODO: Add Google App engine Memcache for this API
-# https://cloud.google.com/appengine/docs/standard/python/memcache/using#configuring_memcache
-
 # There are multiple functions for differnt doc2vec models
 natural_language_function_base_url = "https://us-central1-graph-intelligence.cloudfunctions.net/{0}"
 
