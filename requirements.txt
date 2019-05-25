@@ -5,3 +5,4 @@ py2neo
 neo4j
 newspaper3k
 feedparser
+cachetools
