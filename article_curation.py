@@ -19,8 +19,8 @@ def rss_to_article_dicts(rss_link, max_articles=5):
     for entry in feed['entries'][:max_articles]:
         article = fetch_article(entry['links'][0]['href'])
 
-        # First 4 sentences + remove newlines
-        article['summary'] = " ".join(article['text'].split('.')[:4]).replace("\n", " ")
+        # First n sentences + remove newlines
+        article['summary'] = ". ".join(article['text'].split('.')[:6]).replace("\n", " ")
         article_dicts.append(article)
 
     return article_dicts
