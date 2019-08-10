@@ -24,13 +24,8 @@ package:
     - .git/**
 
 functions:
-  adding1:
-    handler: test1
-    events:
-      - http: path
-
-  adding2:
-    handler: test2
+  fetch_article:
+    handler: fetch_article
     events:
       - http: path
 

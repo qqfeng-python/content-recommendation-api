@@ -1,25 +1,41 @@
-from cool_function import cool
+from processor import scrape_article
+import json
+
+from config import DEV_MODE
 
 
-def test1(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
+def fetch_article(request):
     """
-    return "Hello World # {0}".format(cool(1,3))
-
-
-def test2(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
+    Takes article link and returns scraped data on article
+    :return:
     """
-    return "Hello World # {0}".format(cool(5,3))
+
+    # Set CORS headers for main requests
+    headers = {
+        'Content-Type': 'application/json',
+        # 'Access-Control-Allow-Origin': 'https://mydomain.com',
+        # 'Access-Control-Allow-Credentials': 'true'
+    }
+
+    if not DEV_MODE:
+        request = request.get_json()
+        if not request:
+            return ('POST json missing. Check that you are posting json.', 500, headers)
+
+    try:
+        url = request["article_url"]
+    except (KeyError):
+        return ('Missing article_url param', 500, headers)
+
+    article_dicts = scrape_article(url)
+    if article_dicts is None:
+        return ('Scraping failed for: {0}'.format(url), 500, headers)
+
+    return (json.dumps(article_dicts), 200, headers)
+
+# Local test
+# p = fetch_article({
+#     'article_url': 'https://techcrunch.com/2019/05/01/alexa-in-skil-purchasing-which-lets-developers-make-money-from-voice-apps-launches-internationally/'
+# })
+#
+# print(p)
