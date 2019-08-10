@@ -27,27 +27,66 @@ Takes the URL of an article.
 
 ### POST /fetch_rss
 Takes the URL of the RSS feed.
-- The database is checked to see if it contain the RSS feed.
-- If that URLs is new thr individual article links are parsed out of the RSS feed.
-- 
+- The database is checked to see if it contain the RSS feed. RSS feeds must be initially inserted by calling `/download_rss`
+- If the URL is not in the DB, 404 returned
 
 **Request Params**
 - rss_url
 
 **Sample Response**
+```json
+[
+    {
+        "text": "Sample text",
+        "title": "Jeffrey Epstein has died by suicide, sources say",
+        "date": "None",
+        "img_url": "https://cdn.cnn.com/cnnnext/dam/assets/190810090556-jeffrey-epstein-handout-130525-super-tease.jpg",
+        "url": "http://rss.cnn.com/~r/rss/cnn_topstories/~3/2ZvWB18lbSg/index.html",
+        "summary": "Sample summary"
+    },
+    {
+        "text": "Sample text",
+        "title": "Jeffrey Epstein found dead in jail, officials say",
+        "date": "None",
+        "img_url": "https://cdn.cnn.com/cnnnext/dam/assets/190810090900-jeffrey-epstein-handout-170328-super-tease.jpg",
+        "url": "http://rss.cnn.com/~r/rss/cnn_topstories/~3/LxyKWnJeF7Y/jeffrey-epstein-found-dead-new-york-jail-vpx-nr.cnn",
+        "summary": "Sample summary"
+    }
+]
+```
 
 
 ### POST /download_rss
 Takes the URL of the RSS feed.
-- The database is checked to see if it contain the RSS feed. Existing RSS feeds are over written while new RSS feeds are created as entries. 
 - The individual article links are parsed out of the RSS feed and downloaded.
 - The RSS URL is saved in the data base as a key with the corresponding data being the individual analyzed articles containing text with additional metadata.
+- The urlencoded RSS URL is used as the DB key to the collection of article documents found in the RSS feed.
+- Existing RSS feeds are over written
 
 **Request Params**
 - rss_url
 
 **Sample Response**
-
+```json
+[
+    {
+        "text": "Sample text",
+        "title": "Jeffrey Epstein has died by suicide, sources say",
+        "date": "None",
+        "img_url": "https://cdn.cnn.com/cnnnext/dam/assets/190810090556-jeffrey-epstein-handout-130525-super-tease.jpg",
+        "url": "http://rss.cnn.com/~r/rss/cnn_topstories/~3/2ZvWB18lbSg/index.html",
+        "summary": "Sample summary"
+    },
+    {
+        "text": "Sample text",
+        "title": "Jeffrey Epstein found dead in jail, officials say",
+        "date": "None",
+        "img_url": "https://cdn.cnn.com/cnnnext/dam/assets/190810090900-jeffrey-epstein-handout-170328-super-tease.jpg",
+        "url": "http://rss.cnn.com/~r/rss/cnn_topstories/~3/LxyKWnJeF7Y/jeffrey-epstein-found-dead-new-york-jail-vpx-nr.cnn",
+        "summary": "Sample summary"
+    }
+]
+```
 
 
 

@@ -10,7 +10,7 @@ provider:
   # https://serverless.com/framework/docs/providers/google/guide/credentials/
   #
   # the path to the credentials file needs to be absolute
-  credentials: /Users/milanarezina/PycharmProjects/wyzefind-core-api/keyfile.json
+  credentials: /Users/milanarezina/PycharmProjects/wyzefind-core-api/article_curation/keyfile.json
 
 plugins:
   - serverless-google-cloudfunctions
@@ -26,6 +26,16 @@ package:
 functions:
   fetch_article:
     handler: fetch_article
+    events:
+      - http: path
+
+  download_rss:
+    handler: download_rss
+    events:
+      - http: path
+
+  fetch_rss:
+    handler: fetch_rss
     events:
       - http: path
 
