@@ -4,4 +4,4 @@ DEV_MODE = False
 KEYFILE = 'keyfile.json'
 
 BASE_URL = 'https://us-central1-media-voice-applications.cloudfunctions.net'
-DOWNLOAD_RSS_URL = "{0}/fetch_rss".format(BASE_URL)
+DOWNLOAD_RSS_URL = "{0}/download_rss".format(BASE_URL)

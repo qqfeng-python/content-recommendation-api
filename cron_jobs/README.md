@@ -1,36 +1,39 @@
 # Cron Jobs
 
 Used to refresh content and manage the content processing pipeline.
-TODO: what used to scheudling?
+
+Cron jobs are deployed as cloud functions which are invoked by the cloud scheduler (GCP).
 
 
 ## Endpoints
 
-### POST /fetch_article
-Takes the URL of an article. 
-- The URL is parsed using the python newspaper library. The original Article downloader was extended to allow for downloading articles from webpages that could otherwise not be parsed.
-- The text and title of the article are returned along with additional Metadata.
-
+### GET /update_rss_articles
+Invoked by a GET request taking no parameters.
+- All of the current RSS feeds are fetched from the database.
+- The download_rss endpoint is used to update each of the RSS feeds with new articles.
+- RSS feeds that dont' update are tried again
+- A report of the update along with the queue of the failed RSS feeds is returned.
 
 **Request Params**
-- article_url
+- None
 
 **Sample Response**
 ```json
 {
-    "text": "A year after Amazon opened in-skill purchasing to all Alexa developers in the U.S.can be used for",
-    "title": "Alexa in-skill purchasing, which lets developers make money from voice apps, launches internationally – TechCrunch",
-    "date": "2019-05-01 00:00:00",
-    "img_url": "https://techcrunch.com/wp-content/uploads/2019/05/amazon-echo-alexa.jpg?w=600",
-    "url": "https://techcrunch.com/2019/05/01/alexa-in-skill-purchasing-which-lets-developers-make-money-from-voice-apps-launches-internationally"
+    "report": "Total RSS Feeds: 4 Total Failed: 0 Total Time to Update: 29.32970881462097 Average Time to update: 7.332427203655243",
+    "failed_queue": []
 }
 ```
 
-
-
-
 ## Deployment
 Google Cloud Function deployed through serverless framework.
+
+
+## Next Steps
+- [ ] Add Zapier integration to send message if error
+
+
+
 
  
 

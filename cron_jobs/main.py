@@ -1,7 +1,6 @@
 import json
 import requests
 import time
-from urllib.parse import unquote
 
 import firebase_admin
 from firebase_admin import credentials
@@ -59,7 +58,7 @@ def update_rss_articles(request):
     for feed in rss_feeds:
 
         start_time = time.time()
-        r = requests.post(DOWNLOAD_RSS_URL, data={'rss_url': feed})
+        r = requests.post(DOWNLOAD_RSS_URL, json={'rss_url': feed})
 
         # Measure how long it takes to refresh RSS URLs in the DB
         times.append(time.time() - start_time)
@@ -69,7 +68,7 @@ def update_rss_articles(request):
 
     # Try refreshing the feeds that failed again
     for feed in failed_queue:
-        r = requests.post(DOWNLOAD_RSS_URL, data={'rss_url': feed})
+        r = requests.post(DOWNLOAD_RSS_URL, json={'rss_url': feed})
 
         # If worked this time, remove from failed queue
         if r.status_code == 200:
@@ -85,4 +84,4 @@ def update_rss_articles(request):
     }), 200, headers)
 
 
-update_rss_articles(123)
+# print(update_rss_articles(123))
