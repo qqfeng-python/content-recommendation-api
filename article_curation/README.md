@@ -92,7 +92,7 @@ Takes the URL of the RSS feed.
 
 
 ## Deployment
-Google Club Function deployed through serverless framework.
+Google Cloud Function deployed through serverless framework.
 
  
 

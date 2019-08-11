@@ -105,7 +105,7 @@ def fetch_rss(request):
 # print(p)
 
 # p = download_rss({
-#     'rss_url': 'https://danamic.org/music/rss/'
+#     'rss_url': 'http://rss.cnn.com/rss/cnn_tech.rss/'
 # })
 # print(p)
 

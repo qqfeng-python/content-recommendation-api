@@ -100,11 +100,30 @@ def store_article_dicts_from_rss(rss_link):
         article_dicts = rss_to_article_dicts(rss_link)
 
         # Create a document with URL encoded RSS link as the key
-        rss_docs = db.collection("rss_feeds").document(urllib.parse.quote_plus(rss_link))
+        encoded = urllib.parse.quote_plus(rss_link)
+
+        rss_docs = db.collection("rss_feeds").document(encoded)
+        # Need to add rss_feed property so that rss_feeds collection can be queried for rss_feeds, with no feild (only document) the collection comes back empty
+        # Becuase with no feilds considered "virtual document", "This document does not exist and will not appear in queries or snapshots, but identically structured document works"
+        rss_docs.set({
+            "rss_feed": rss_link
+        })
+
+        # Get old titles to delete later
+        old_articles = db.collection("rss_feeds").document(encoded).collection('articles').stream()
+        old_titles = [article.to_dict()['title'] for article in old_articles]
+        new_titles = [article['title'] for article in article_dicts]
+
 
         # Add each article_dict as a document in the 'articles' collection with the title as the key
         for article in article_dicts:
             rss_docs.collection('articles').document(article['title']).set(article)
+
+        # Only delete after adding new articles so api will never be queried when DB empty, otherwise if called when refreshing content no articles my come back.
+        for old in old_titles:
+            if old not in new_titles:
+                rss_docs.collection('articles').document(old).delete()
+
 
     except Exception:
         return None

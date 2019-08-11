@@ -4,15 +4,15 @@ venv/
 __pycache__
 
 
+# Google
+keyfile.json
+
 
 # Serverless
 **/.serverless
 .env
 tmp
 .coveralls.yml
-
-# Google
-keyfile.json
 
 # Logs
 *.log

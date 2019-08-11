@@ -1,5 +1,5 @@
 {
-  "name": "article_curation",
+  "name": "cron_jobs",
   "version": "0.1.0",
   "description": "",
   "main": "main.py",

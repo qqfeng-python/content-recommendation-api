@@ -1,0 +1,10 @@
+Flask
+google-cloud-core
+google-api-core
+google-auth
+google-cloud-storage
+google-resumable-media
+googleapis-common-protos
+google-cloud-firestore
+grpcio
+firebase-admin
