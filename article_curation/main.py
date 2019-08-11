@@ -93,7 +93,7 @@ def fetch_rss(request):
 
     article_dicts = get_article_dicts_from_rss(url)
     if not article_dicts:
-        return error_message("Failure fetching RSS from DB: {0}".format(url), 404)
+        return error_message("Failure fetching RSS from DB. Make sure original url doesn't have training newlines or / : {0}".format(url), 404)
 
     return (json.dumps(article_dicts), 200, headers)
 
@@ -110,6 +110,6 @@ def fetch_rss(request):
 # print(p)
 
 # p = fetch_rss({
-#     'rss_url': 'https://danamic.org/music/rss/'
+#     'rss_url': 'http://fetchrss.com/rss/5ce8c95d8a93f8d5098b45675cfbc03d8a93f8e25d8b4567.xml'
 # })
 # print(p)

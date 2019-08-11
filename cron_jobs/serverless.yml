@@ -12,6 +12,10 @@ provider:
   # the path to the credentials file needs to be absolute
   credentials: /Users/milanarezina/PycharmProjects/wyzefind-core-api/cron_jobs/keyfile.json
 
+  # Default is 60
+  # TODO: Timeout flag doesn't work in GCP, need to manually go to function and edit it to increase timeout
+  #  timeout: 120
+
 plugins:
   - serverless-google-cloudfunctions
 

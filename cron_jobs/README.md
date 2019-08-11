@@ -30,7 +30,9 @@ Google Cloud Function deployed through serverless framework.
 
 
 ## Next Steps
-- [ ] Add Zapier integration to send message if error
+- Add testing
+- Make update_rss calls asynchronous or function will timeout
+- Add Zapier integration to send message if error
 
 
 
