@@ -20,3 +20,6 @@ __pycache__/
 
 # Dont upload venv folder
 venv/
+
+.serverless/
+node_modules/

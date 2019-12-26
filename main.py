@@ -14,15 +14,14 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 """
-Server for Wyzefind API:
--Requires the user_id to identiy the proper graph to query
+Server for Core API:
+-Requires the user_id to identify the proper graph to query
 -cluster_id is always 1
 
 -Analyzes document
 -/summary only for summary
--/summary-related for both summary and most related docmuents
--/Explore Performs Cypher queries to explain relations
--
+-/summary-related for both summary and most related documents
+-/explore Performs Cypher queries to explain relations
 """
 
 
@@ -82,7 +81,7 @@ def get_related_articles():
     most_related = most_related[:NUMBER_OF_RELATED_ARTICLES]
 
     try:
-        # Prevent the same article from being reccomended
+        # Prevent the same article from being recommended
         most_related.remove(article_dict["title"])
     except ValueError:
         pass
