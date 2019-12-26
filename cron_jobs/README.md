@@ -11,7 +11,7 @@ Cron jobs are deployed as cloud functions which are invoked by the cloud schedul
 Invoked by a GET request taking no parameters.
 - All of the current RSS feeds are fetched from the database.
 - The download_rss endpoint is used to update each of the RSS feeds with new articles.
-- RSS feeds that dont' update are tried again
+- RSS feeds that fail to update are added to a queue which will be parsed again
 - A report of the update along with the queue of the failed RSS feeds is returned.
 
 **Request Params**
@@ -24,10 +24,6 @@ Invoked by a GET request taking no parameters.
     "failed_queue": []
 }
 ```
-
-## Deployment
-Google Cloud Function deployed through serverless framework.
-
 
 ## Next Steps
 - Add testing
