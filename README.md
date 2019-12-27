@@ -1,12 +1,13 @@
 # Content Recommendation API
 
 The content recommendation api is used to provide recommendations for related content based on the underlying
-content graph stored as a Neo4j Database. The API can also be used to provide explainable content recommendations
+knowledge graph stored as a Neo4j Database. The [graph scripts](https://github.com/mrkarezina/unsupervised-news-visualization-scripts) use the language_processor_api api to set up the
+actual knowledge graph. The API can also be used to provide explainable content recommendations
 where relations to related content are explained.
 
 The API is used to power chatbots, voice apps (Google Assistant / Alexa), and web applications for media sites.
 It provides endpoints for things like summaries, related content, and explainable related content.
-The API is responsible for interacting with the neo4j database which hosts the content graph.
+The API is responsible for interacting with the neo4j database which hosts the knowledge graph.
 
 
 ## Endpoints
